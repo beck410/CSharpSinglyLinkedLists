@@ -15,14 +15,31 @@ namespace SinglyLinkedLists
         private SinglyLinkedListNode next;
         public SinglyLinkedListNode Next
         {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
+            get { return this.next; }
+            set { 
+              if(value == this){
+                throw new ArgumentException("can't set to this");
+             } else {
+                this.next = value;
+              } 
+            }            
+        }
+
+        public override bool Equals(object obj) {
+          //SinglyLinkedListNode node = obj as SinglyLinkedListNode;
+          //return node != null && this.Value.Equals(node.Value);
+
+          return this.CompareTo(obj) == 0;
+        }
+
+        public override string ToString() {
+            return this.value;
         }
 
         private string value;
-        public string Value 
+        public string Value
         {
-            get { throw new NotImplementedException(); }
+          get { return this.value; }
         }
 
         public static bool operator <(SinglyLinkedListNode node1, SinglyLinkedListNode node2)
@@ -39,8 +56,7 @@ namespace SinglyLinkedLists
 
         public SinglyLinkedListNode(string value)
         {
-            throw new NotImplementedException();
-
+          this.value = value;
             // Used by the visualizer:
             allNodes.Add(this);
         }
@@ -48,12 +64,23 @@ namespace SinglyLinkedLists
         // READ: http://msdn.microsoft.com/en-us/library/system.icomparable.compareto.aspx
         public int CompareTo(Object obj)
         {
-            throw new NotImplementedException();
+          SinglyLinkedListNode node = obj as SinglyLinkedListNode;
+          return node == null ? 1 : this.Value.CompareTo(node.Value);
+
+          //if (obj == null) return 1;
+          
+          //SinglyLinkedListNode OtherNode = obj as SinglyLinkedListNode;
+          //if(OtherNode != null){
+          //  return this.value.CompareTo(OtherNode.value);
+          //} 
+          //else {
+          //  throw new ArgumentException("obj is not a SingleLinkedListNode");
+          //}
         }
 
-        public bool IsLast()
-        {
-            throw new NotImplementedException();
+        public bool IsLast() {
+          return this.next == null;
         }
+
     }
 }
